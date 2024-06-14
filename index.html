@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link type="icon" rel="icon" href="./img/to mp3mp4.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Dancing+Script:wght@400..700&display=swap"
+        rel="stylesheet">
+    <title>Document</title>
+    <style>
+        .caveat-uniquifier {
+            font-family: "Caveat", cursive;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        body {
+            background-image: url('./img/to\ mp3mp4.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        input {
+            width: 300px;
+            height: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="d-flex flex-column align-items-center justify-content-center" style="height: 100vh;">
+        <input class="border rounded rounded-5 mb-2" id="url" type="text" placeholder="Paste YouTube link here...">
+        <a class="btn btn-primary" id="download" href="#" target="_blank" style="display: none;">Download</a>
+    </div>
+    <div class="fixed-bottom d-flex justify-content-between px-5 py-2 bg-warning">
+        <h4 class="caveat-uniquifier">By Lalisa Ejeta</h4>
+        <p id="copyright"></p>
+    </div>
+
+    <script>
+        const download = document.getElementById("download");
+        const url = document.getElementById("url");
+
+        // Function to validate YouTube URL
+        function isValidYouTubeUrl(inputUrl) {
+            // Regular expression to match YouTube video URL
+            const regex = /^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/;
+            return regex.test(inputUrl);
+        }
+
+        download.addEventListener("click", function (event) {
+            const urlResult = url.value.trim();
+            if (isValidYouTubeUrl(urlResult)) {
+                download.href = `https://api.vevioz.com/apis/widgetv2?url=${urlResult}`;
+            } else {
+                event.preventDefault(); // Prevent download if the URL is empty or not valid
+                alert("Please enter a valid YouTube URL");
+            }
+        });
+
+        url.addEventListener('input', function () {
+            if (isValidYouTubeUrl(url.value.trim())) {
+                download.style.display = 'block';
+                download.innerText = "Download";
+            } else {
+                download.style.display = 'block'; // Display the anchor tag
+                download.href = "#"; // Reset href to prevent unintended navigation
+                download.innerText = "Not valid youtube link"; // Set the text to indicate invalid link
+            }
+        });
+
+        const now = new Date();
+        const year = now.getFullYear();
+        document.getElementById('copyright').textContent = `©${year}`;
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

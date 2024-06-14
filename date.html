@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accessing Year from Date</title>
+</head>
+<body>
+    <h1>Accessing Year from Date</h1>
+    <p id="year"></p>
+
+    <script>
+        const now = new Date();
+        const year = now.getFullYear();
+
+        // Display the year in the HTML element with id 'year'
+        document.getElementById('year').textContent = `Current year is: ${year}`;
+    </script>
+</body>
+</html>
